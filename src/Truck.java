@@ -13,6 +13,10 @@ public class Truck {
             this.loadLimit = loadLimit;
         }
 
+        public int getLoadLimit() {
+            return loadLimit;
+        }
+
         public Truck make() {
             return new Truck(loadLimit);
         }

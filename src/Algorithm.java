@@ -54,7 +54,9 @@ public abstract class Algorithm {
         // Execute based on child class implementation
         execute(data, executionStack, trucks, factory);
 
-        return new Result(algorithmName,
+        return new Result(
+                algorithmName,
+                data.getTruckLoadLimit(),
                 executionStack.toArray(new String[]{}),
                 trucks.toArray(new Truck[]{}));
     }
@@ -65,13 +67,23 @@ public abstract class Algorithm {
     public static class Result {
 
         private final String algorithmName;
+        private final int loadLimit;
         private final String[] executionStack;
         private final Truck[] trucks;
 
-        protected Result(String algorithmName, String[] executionStacks, Truck[] trucks) {
+        protected Result(String algorithmName, int loadLimit, String[] executionStacks, Truck[] trucks) {
             this.algorithmName = algorithmName;
+            this.loadLimit = loadLimit;
             this.executionStack = executionStacks;
             this.trucks = trucks;
+        }
+
+        public String getAlgorithmName() {
+            return algorithmName;
+        }
+
+        public int getLoadLimit() {
+            return loadLimit;
         }
 
         public String[] getExecutionStack() {
@@ -83,17 +95,52 @@ public abstract class Algorithm {
         }
 
         public String getResultString() {
+            return getResultString(false, false);
+        }
+
+        public String getResultString(boolean withTrucks, boolean withExecutionStack) {
             StringBuilder builder = new StringBuilder();
 
             // Summary
             builder.append("Algorithm used: ")
                     .append(algorithmName)
                     .append("\n");
+            builder.append("Load limit of trucks needed: ")
+                    .append(loadLimit)
+                    .append("\n");
             builder.append("Number of trucks needed: ")
                     .append(trucks.length)
                     .append("\n");
 
-            // Show trucks
+            // Show trucks if needed
+            if (withTrucks) {
+                builder.append("Details of each truck: ")
+                        .append(getTrucksAsString());
+            }
+
+            // Show exection stack if needed
+            if (withExecutionStack) {
+                builder.append(getExecutionStackAsString());
+            }
+
+            return builder.toString();
+        }
+
+        public String getExecutionStackAsString() {
+            StringBuilder builder = new StringBuilder();
+
+            for (String stack : executionStack) {
+                builder.append(">")
+                        .append(stack)
+                        .append("\n");
+            }
+
+            return builder.toString();
+        }
+
+        public String getTrucksAsString() {
+            StringBuilder builder = new StringBuilder();
+
             for (Truck truck : trucks) {
                 builder.append("Truck => ");
 
