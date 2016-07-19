@@ -52,7 +52,12 @@ public abstract class Algorithm {
         Truck.Factory factory = new Truck.Factory(data.getTruckLoadLimit());
 
         // Execute based on child class implementation
-        execute(data, executionStack, trucks, factory);
+        execute(
+                data.getTruckLoadLimit(),
+                data.getParcels(),
+                executionStack,
+                trucks,
+                factory);
 
         return new Result(
                 algorithmName,
@@ -61,8 +66,12 @@ public abstract class Algorithm {
                 trucks.toArray(new Truck[]{}));
     }
 
-    public abstract void execute(Data data, LinkedList<String> executionStack,
-            LinkedList<Truck> trucks, Truck.Factory factory);
+    public abstract void execute(
+            int loadLimit,
+            LinkedList<Parcel> parcels,
+            LinkedList<String> executionStack,
+            LinkedList<Truck> trucks,
+            Truck.Factory factory);
 
     public static class Result {
 

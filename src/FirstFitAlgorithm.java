@@ -7,13 +7,23 @@ public class FirstFitAlgorithm extends Algorithm {
         super(Factory.FIRST_FIT);
     }
 
+    protected FirstFitAlgorithm(String algorithmName) {
+        super(algorithmName);
+    }
+
     @Override
-    public void execute(Data data, LinkedList<String> executionStack, LinkedList<Truck> trucks, Truck.Factory factory) {
+    public void execute(
+            int loadLimit,
+            LinkedList<Parcel> parcels,
+            LinkedList<String> executionStack,
+            LinkedList<Truck> trucks,
+            Truck.Factory factory) {
+
         Truck newTruck = null;
 
         // Parcel label
         ParcelLoop:
-        for (Parcel parcel : data.getParcels()) {
+        for (Parcel parcel : parcels) {
             executionStack.add("Adding parcel with weight " + parcel.getWeight());
 
             // Truck label
@@ -24,7 +34,7 @@ public class FirstFitAlgorithm extends Algorithm {
                             String.format(
                                     "\tAdded to truck with load (%d/%d)",
                                     truck.getRemainingLoad(),
-                                    factory.getLoadLimit()));
+                                    loadLimit));
                     truck.addParcel(parcel);
 
                     // Continue parcel loop
@@ -37,7 +47,6 @@ public class FirstFitAlgorithm extends Algorithm {
             newTruck = factory.make();
             newTruck.addParcel(parcel);
             trucks.add(newTruck);
-
         }
     }
 

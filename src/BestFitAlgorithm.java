@@ -7,8 +7,18 @@ public class BestFitAlgorithm extends Algorithm {
         super(Factory.BEST_FIT);
     }
 
+    protected BestFitAlgorithm(String algorithmName) {
+        super(algorithmName);
+    }
+
     @Override
-    public void execute(Data data, LinkedList<String> executionStack, LinkedList<Truck> trucks, Truck.Factory factory) {
+    public void execute(
+            int loadLimit,
+            LinkedList<Parcel> parcels,
+            LinkedList<String> executionStack,
+            LinkedList<Truck> trucks,
+            Truck.Factory factory) {
+
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
