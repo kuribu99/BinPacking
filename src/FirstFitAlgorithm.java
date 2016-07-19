@@ -8,11 +8,7 @@ public class FirstFitAlgorithm extends Algorithm {
     }
 
     @Override
-    public Result execute(Data data) {
-        LinkedList<String> executionStack = new LinkedList<>();
-        LinkedList<Truck> trucks = new LinkedList<>();
-        Truck.Factory factory = new Truck.Factory(data.getTruckLoadLimit());
-
+    public void execute(Data data, LinkedList<String> executionStack, LinkedList<Truck> trucks, Truck.Factory factory) {
         Truck newTruck = null;
 
         // Parcel label
@@ -34,10 +30,6 @@ public class FirstFitAlgorithm extends Algorithm {
             newTruck.addParcel(parcel);
             trucks.add(newTruck);
         }
-
-        return new Result(algorithmName,
-                executionStack.toArray(new String[]{}),
-                trucks.toArray(new Truck[]{}));
     }
 
 }

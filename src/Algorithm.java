@@ -1,4 +1,6 @@
 
+import java.util.LinkedList;
+
 public abstract class Algorithm {
 
     public static class Factory {
@@ -44,7 +46,21 @@ public abstract class Algorithm {
         return algorithmName;
     }
 
-    public abstract Result execute(Data data);
+    public Result execute(Data data) {
+        LinkedList<String> executionStack = new LinkedList<>();
+        LinkedList<Truck> trucks = new LinkedList<>();
+        Truck.Factory factory = new Truck.Factory(data.getTruckLoadLimit());
+
+        // Execute based on child class implementation
+        execute(data, executionStack, trucks, factory);
+
+        return new Result(algorithmName,
+                executionStack.toArray(new String[]{}),
+                trucks.toArray(new Truck[]{}));
+    }
+
+    public abstract void execute(Data data, LinkedList<String> executionStack,
+            LinkedList<Truck> trucks, Truck.Factory factory);
 
     public static class Result {
 
