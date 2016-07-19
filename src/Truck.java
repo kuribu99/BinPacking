@@ -42,6 +42,10 @@ public class Truck {
         return currentLoad;
     }
 
+    public int getRemainingLoad() {
+        return loadLimit - currentLoad;
+    }
+
     public LinkedList<Parcel> getParcels() {
         return list;
     }

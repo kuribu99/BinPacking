@@ -114,13 +114,14 @@ public abstract class Algorithm {
 
             // Show trucks if needed
             if (withTrucks) {
-                builder.append("Details of each truck: ")
+                builder.append("Details of each truck:\n")
                         .append(getTrucksAsString());
             }
 
             // Show exection stack if needed
             if (withExecutionStack) {
-                builder.append(getExecutionStackAsString());
+                builder.append("Execution Stack:\n")
+                        .append(getExecutionStackAsString());
             }
 
             return builder.toString();
@@ -130,8 +131,8 @@ public abstract class Algorithm {
             StringBuilder builder = new StringBuilder();
 
             for (String stack : executionStack) {
-                builder.append(">")
-                        .append(stack)
+                builder.append("> ")
+                        .append(stack.replace("\t", "    "))
                         .append("\n");
             }
 

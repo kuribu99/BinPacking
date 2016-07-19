@@ -20,23 +20,24 @@ public class FirstFitAlgorithm extends Algorithm {
             TruckLoop:
             for (Truck truck : trucks) {
                 if (truck.canFit(parcel)) {
-                    truck.addParcel(parcel);
                     executionStack.add(
                             String.format(
                                     "\tAdded to truck with load (%d/%d)",
-                                    truck.getCurrentLoad(),
+                                    truck.getRemainingLoad(),
                                     factory.getLoadLimit()));
+                    truck.addParcel(parcel);
 
                     // Continue parcel loop
                     continue ParcelLoop;
                 }
             }
 
+            executionStack.add("\tAdded to new truck");
+
             newTruck = factory.make();
             newTruck.addParcel(parcel);
             trucks.add(newTruck);
 
-            executionStack.add("\tAdded to new truck with load (%d/%d)");
         }
     }
 

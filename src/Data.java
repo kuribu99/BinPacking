@@ -2,6 +2,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Data {
@@ -41,6 +42,20 @@ public class Data {
 
             data.success = true;
         }
+
+        return data;
+    }
+
+    public static Data generate(int loadLimit, int numberParcels) {
+        Random rand = new Random();
+        Data data = new Data();
+        data.truckLoadLimit = loadLimit;
+
+        for (int i = 0; i < numberParcels; i++) {
+            data.parcels.add(new Parcel(rand.nextInt(loadLimit) + 1));
+        }
+
+        data.success = true;
 
         return data;
     }
