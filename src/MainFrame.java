@@ -226,10 +226,7 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteActionPerformed
-        // Read data if data does not exist
-        if (fileData == null) {
-            btnSelectPathActionPerformed(evt);
-        }
+        btnSelectPathActionPerformed(evt);
         execute(fileData);
     }//GEN-LAST:event_btnExecuteActionPerformed
 
@@ -289,8 +286,10 @@ public class MainFrame extends javax.swing.JFrame {
         algorithmModel = new DefaultComboBoxModel<>(new String[]{
             Algorithm.Factory.FIRST_FIT,
             Algorithm.Factory.BEST_FIT,
+            Algorithm.Factory.WORST_FIT,
             Algorithm.Factory.FIRST_FIT_DECR,
-            Algorithm.Factory.BEST_FIT_DECR
+            Algorithm.Factory.BEST_FIT_DECR,
+            Algorithm.Factory.WORST_FIT_DECR
         });
 
         loadLimitSpinnerModel = new SpinnerNumberModel(10, 1, Integer.MAX_VALUE, 1);

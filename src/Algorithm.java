@@ -8,8 +8,10 @@ public abstract class Algorithm {
         // Defined algorithms
         public static final String FIRST_FIT = "First Fit";
         public static final String BEST_FIT = "Best Fit";
+        public static final String WORST_FIT = "Worst Fit";
         public static final String FIRST_FIT_DECR = "First Fit Decreasing";
         public static final String BEST_FIT_DECR = "Best Fit Decreasing";
+        public static final String WORST_FIT_DECR = "Worst Fit Decreasing";
 
         protected Factory() {
 
@@ -23,11 +25,17 @@ public abstract class Algorithm {
                 case BEST_FIT:
                     return new BestFitAlgorithm();
 
+                case WORST_FIT:
+                    return new WorstFitAlgorithm();
+
                 case FIRST_FIT_DECR:
                     return new FirstFitDecrAlgorithm();
 
                 case BEST_FIT_DECR:
                     return new BestFitDecrAlgorithm();
+
+                case WORST_FIT_DECR:
+                    return new WorstFitDecrAlgorithm();
 
                 default:
                     return null;
