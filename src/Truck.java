@@ -27,6 +27,7 @@ public class Truck {
     private final LinkedList<Parcel> list;
     private final int loadLimit;
     private int currentLoad;
+    private int max = Integer.MAX_VALUE;
 
     protected Truck(int loadLimit) {
         this.loadLimit = loadLimit;
@@ -62,5 +63,8 @@ public class Truck {
     public boolean canFit(Parcel p) {
         return currentLoad >= p.getWeight();
     }
-
+    
+    public boolean isMax(){
+        return currentLoad >= getRemainingLoad();
+    }
 }
