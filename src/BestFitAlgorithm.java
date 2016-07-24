@@ -19,7 +19,35 @@ public class BestFitAlgorithm extends Algorithm {
             LinkedList<Truck> trucks,
             Truck.Factory factory) {
 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Truck newTruck = null;
+
+        // Parcel label
+        ParcelLoop:
+        for (Parcel parcel : parcels) {
+            executionStack.add("Adding parcel with weight " + parcel.getWeight());
+
+            // Truck label
+            TruckLoop:
+            for (Truck truck : trucks) {
+                if (truck.canFit(parcel) && (truck.getRemainingLoad() <= parcel.getWeight())) {
+                    executionStack.add(
+                            String.format(
+                                    "\tAdded to truck with load (%d/%d)",
+                                    truck.getRemainingLoad(),
+                                    loadLimit));
+                    truck.addParcel(parcel);
+
+                    // Continue parcel loop
+                    continue ParcelLoop;
+                }
+            }
+
+            executionStack.add("\tAdded to new truck");
+
+            newTruck = factory.make();
+            newTruck.addParcel(parcel);
+            trucks.add(newTruck);
+        }
     }
 
 }
