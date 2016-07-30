@@ -1,5 +1,6 @@
 
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 
 public class WorstFitAlgorithm extends Algorithm {
     
@@ -27,19 +28,20 @@ public class WorstFitAlgorithm extends Algorithm {
         
             TruckLoop:
             for(Truck truck: trucks){
-                if(truck.isMax()){
+                    truck.isMax(parcel);
                     if(truck.canFit(parcel)){
+                        
                         executionStack.add(String.format
-                                        ("\tAdded to truck with load (%d/%d)",
-                                        truck.getRemainingLoad(),
-                                        loadLimit));
-                        truck.addParcel(parcel);
+                                            ("\tAdded to truck with load (%d/%d)",
+                                            truck.getRemainingLoad(),
+                                            loadLimit));
 
+                        truck.addParcel(parcel);
                         continue ParcelLoop;
                     }
-                }
+                 
             }
-            
+                 
             executionStack.add("\tAdded to new truck");
             
             newTruck = factory.make();
