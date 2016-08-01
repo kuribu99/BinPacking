@@ -30,7 +30,7 @@ public class Truck {
 
     protected Truck(int loadLimit) {
         this.loadLimit = loadLimit;
-        this.currentLoad = loadLimit;
+        this.currentLoad = 0;
         this.list = new LinkedList<>();
     }
 
@@ -52,7 +52,7 @@ public class Truck {
 
     public boolean addParcel(Parcel p) {
         if (canFit(p) && list.add(p)) {
-            currentLoad -= p.getWeight();
+            currentLoad += p.getWeight();
             return true;
         } else {
             return false;
@@ -60,7 +60,7 @@ public class Truck {
     }
 
     public boolean canFit(Parcel p) {
-        return currentLoad >= p.getWeight();
+        return getRemainingLoad() >= p.getWeight();
     }
 
 }
