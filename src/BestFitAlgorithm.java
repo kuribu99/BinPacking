@@ -59,7 +59,7 @@ public class BestFitAlgorithm extends Algorithm {
                 executionStack.add(
                         String.format(
                                 "\tAdded to truck with load (%d/%d)",
-                                bestTruck.getRemainingLoad(),
+                                bestTruck.getCurrentLoad(),
                                 loadLimit));
                 bestTruck.addParcel(parcel);
             } else {
