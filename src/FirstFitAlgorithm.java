@@ -33,7 +33,7 @@ public class FirstFitAlgorithm extends Algorithm {
                     executionStack.add(
                             String.format(
                                     "\tAdded to truck with load (%d/%d)",
-                                    truck.getRemainingLoad(),
+                                    truck.getCurrentLoad(),
                                     loadLimit));
                     truck.addParcel(parcel);
 

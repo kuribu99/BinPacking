@@ -27,11 +27,10 @@ public class Truck {
     private final LinkedList<Parcel> list;
     private final int loadLimit;
     private int currentLoad;
-    private int max = Integer.MAX_VALUE;
 
     protected Truck(int loadLimit) {
         this.loadLimit = loadLimit;
-        this.currentLoad = loadLimit;
+        this.currentLoad = 0;
         this.list = new LinkedList<>();
     }
 
@@ -53,7 +52,7 @@ public class Truck {
 
     public boolean addParcel(Parcel p) {
         if (canFit(p) && list.add(p)) {
-            currentLoad -= p.getWeight();
+            currentLoad += p.getWeight();
             return true;
         } else {
             return false;
@@ -61,19 +60,19 @@ public class Truck {
     }
 
     public boolean canFit(Parcel p) {
-        return currentLoad >= p.getWeight();
+        return getRemainingLoad() >= p.getWeight();
     }
-    
-    public int getMax(Parcel p){        
-        return getRemainingLoad() - p.getWeight();   
+
+    public int getMax(Parcel p) {
+        return getRemainingLoad() - p.getWeight();
     }
-    
-    public boolean isMax(Parcel p){
+
+    public boolean isMax(Parcel p) {
         getMax(p);
         return true;
     }
-    
-    public boolean getFit(Parcel p){
+
+    public boolean getFit(Parcel p) {
         return getRemainingLoad() >= p.getWeight();
     }
 }
