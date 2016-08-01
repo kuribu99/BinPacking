@@ -111,69 +111,6 @@ public abstract class Algorithm {
             return trucks;
         }
 
-        public String getResultString() {
-            return getResultString(false, false);
-        }
-
-        public String getResultString(boolean withTrucks, boolean withExecutionStack) {
-            StringBuilder builder = new StringBuilder();
-
-            // Summary
-            builder.append("Algorithm used: ")
-                    .append(algorithmName)
-                    .append("\n");
-            builder.append("Load limit of trucks needed: ")
-                    .append(loadLimit)
-                    .append("\n");
-            builder.append("Number of trucks needed: ")
-                    .append(trucks.length)
-                    .append("\n");
-
-            // Show trucks if needed
-            if (withTrucks) {
-                builder.append("Details of each truck:\n")
-                        .append(getTrucksAsString());
-            }
-
-            // Show exection stack if needed
-            if (withExecutionStack) {
-                builder.append("Execution Stack:\n")
-                        .append(getExecutionStackAsString());
-            }
-
-            return builder.toString();
-        }
-
-        public String getExecutionStackAsString() {
-            StringBuilder builder = new StringBuilder();
-
-            for (String stack : executionStack) {
-                builder.append("> ")
-                        .append(stack.replace("\t", "    "))
-                        .append("\n");
-            }
-
-            return builder.toString();
-        }
-
-        public String getTrucksAsString() {
-            StringBuilder builder = new StringBuilder();
-
-            for (Truck truck : trucks) {
-                builder.append("Truck => ");
-
-                // Show parcels
-                for (Parcel parcel : truck.getParcels()) {
-                    builder.append("[")
-                            .append(parcel.getWeight())
-                            .append("] ");
-                }
-                builder.append("\n");
-            }
-
-            return builder.toString();
-        }
-
     }
 
 }

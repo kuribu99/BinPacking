@@ -63,4 +63,17 @@ public class Truck {
         return getRemainingLoad() >= p.getWeight();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Truck => ");
+
+        for (Parcel parcel : list) {
+            builder.append("[")
+                    .append(parcel.getWeight())
+                    .append("] ");
+        }
+        return builder.toString();
+    }
+
 }

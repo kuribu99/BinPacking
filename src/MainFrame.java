@@ -27,8 +27,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         comboboxAlgorithm = new javax.swing.JComboBox();
-        cbxTruck = new javax.swing.JCheckBox();
-        cbxStack = new javax.swing.JCheckBox();
         panelFile = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tbxPath = new javax.swing.JTextField();
@@ -50,12 +48,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setText("Algorithm");
 
         comboboxAlgorithm.setModel(algorithmModel);
-
-        cbxTruck.setSelected(true);
-        cbxTruck.setText("Show Trucks");
-
-        cbxStack.setSelected(true);
-        cbxStack.setText("Show Execution Stack");
 
         panelFile.setBorder(javax.swing.BorderFactory.createTitledBorder("Execute from File"));
 
@@ -194,12 +186,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbxTruck, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbxStack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(comboboxAlgorithm, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comboboxAlgorithm, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(panelRandom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -211,10 +198,6 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboboxAlgorithm, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxTruck)
-                    .addComponent(cbxStack))
                 .addGap(18, 18, 18)
                 .addComponent(panelFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -263,8 +246,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnExecuteRandom;
     private javax.swing.JButton btnGenerate;
     private javax.swing.JButton btnSelectPath;
-    private javax.swing.JCheckBox cbxStack;
-    private javax.swing.JCheckBox cbxTruck;
     private javax.swing.JComboBox comboboxAlgorithm;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -313,11 +294,8 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void showResult(Algorithm.Result result) {
-        showResult(result, cbxTruck.isSelected(), cbxStack.isSelected());
-    }
-
-    private void showResult(Algorithm.Result result, boolean showTrucks, boolean showExecutionStack) {
-        showMessage("Result", result.getResultString(showTrucks, showExecutionStack), JOptionPane.INFORMATION_MESSAGE);
+        ResultDialog dlg = new ResultDialog(this, true, result);
+        dlg.setVisible(true);
     }
 
     private void execute(Data data) {
