@@ -1,7 +1,12 @@
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Truck {
+
+    Iterator<String> iterator() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     // Factory for truck to make trucks based on load limit
     // This allows truck with consistent load limit

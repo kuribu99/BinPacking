@@ -11,6 +11,33 @@ public class BestFitAlgorithm extends Algorithm {
         super(algorithmName);
     }
 
+    public boolean FitBestTruck(LinkedList<Truck> trucks, Parcel parcel)
+	{
+            
+		Truck minTruck = null;
+		for (Truck truck : trucks)
+		{
+			int currentLoad = truck.getCurrentLoad();
+			int parcelWeight = parcel.getWeight();
+                        if (currentLoad >= parcelWeight)
+			{
+				minTruck = truck;
+			}
+			if (currentLoad == parcelWeight)
+			{
+				break;
+			}
+		}
+		
+		// no more trucks could fit
+		if (minTruck == null)
+			return false;
+                
+                minTruck.addParcel(parcel);		
+		return true;
+        }     
+    
+    
     @Override
     public void execute(
             int loadLimit,
@@ -29,7 +56,7 @@ public class BestFitAlgorithm extends Algorithm {
             // Truck label
             TruckLoop:
             for (Truck truck : trucks) {
-                if (truck.canFit(parcel) && (truck.getRemainingLoad() <= parcel.getWeight())) {
+                if (truck.canFit(parcel)) {
                     executionStack.add(
                             String.format(
                                     "\tAdded to truck with load (%d/%d)",
@@ -40,6 +67,9 @@ public class BestFitAlgorithm extends Algorithm {
                     // Continue parcel loop
                     continue ParcelLoop;
                 }
+                    if (FitBestTruck(trucks, parcel) == true){
+                        continue ParcelLoop; 
+                    }
             }
 
             executionStack.add("\tAdded to new truck");
