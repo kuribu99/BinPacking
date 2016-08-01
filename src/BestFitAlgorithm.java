@@ -11,33 +11,35 @@ public class BestFitAlgorithm extends Algorithm {
         super(algorithmName);
     }
 
-    public boolean FitBestTruck(LinkedList<Truck> trucks, Parcel parcel)
-	{
-            
-		Truck minTruck = null;
-		for (Truck truck : trucks)
-		{
-			int currentLoad = truck.getCurrentLoad();
-			int parcelWeight = parcel.getWeight();
-                        if (currentLoad >= parcelWeight)
-			{
-				minTruck = truck;
-			}
-			if (currentLoad == parcelWeight)
-			{
-				break;
-			}
-		}
-		
-		// no more trucks could fit
-		if (minTruck == null)
-			return false;
-                
-                minTruck.addParcel(parcel);		
-		return true;
-        }     
-    
-    
+    public Truck getBestFitTruck(LinkedList<Truck> trucks, Parcel parcel) {
+        int parcelWeight = parcel.getWeight();
+
+        Truck bestTruck = null; // Best fit truck
+        int minLoad = Integer.MAX_VALUE;    // Minimum load after adding parcel
+
+        int currentRemainingLoad;  // Variable to store current truck's remaining load after adding parcel
+
+        for (Truck truck : trucks) {
+            currentRemainingLoad = truck.getRemainingLoad() - parcelWeight;
+
+            // Directly end if best fit
+            if (currentRemainingLoad == 0) {
+                return truck;
+
+            } // Only do if truck load can fit parcel
+            else if (currentRemainingLoad > 0) {
+
+                // If load after parcel is minimum, set as best
+                if (currentRemainingLoad < minLoad) {
+                    bestTruck = truck;
+                    minLoad = currentRemainingLoad;
+                }
+            }
+        }
+
+        return bestTruck;
+    }
+
     @Override
     public void execute(
             int loadLimit,
@@ -46,37 +48,27 @@ public class BestFitAlgorithm extends Algorithm {
             LinkedList<Truck> trucks,
             Truck.Factory factory) {
 
-        Truck newTruck = null;
+        Truck bestTruck;
 
-        // Parcel label
-        ParcelLoop:
         for (Parcel parcel : parcels) {
             executionStack.add("Adding parcel with weight " + parcel.getWeight());
 
-            // Truck label
-            TruckLoop:
-            for (Truck truck : trucks) {
-                if (truck.canFit(parcel)) {
-                    executionStack.add(
-                            String.format(
-                                    "\tAdded to truck with load (%d/%d)",
-                                    truck.getRemainingLoad(),
-                                    loadLimit));
-                    truck.addParcel(parcel);
+            bestTruck = getBestFitTruck(trucks, parcel);
 
-                    // Continue parcel loop
-                    continue ParcelLoop;
-                }
-                    if (FitBestTruck(trucks, parcel) == true){
-                        continue ParcelLoop; 
-                    }
+            if (bestTruck != null) {
+                executionStack.add(
+                        String.format(
+                                "\tAdded to truck with load (%d/%d)",
+                                bestTruck.getRemainingLoad(),
+                                loadLimit));
+                bestTruck.addParcel(parcel);
+            } else {
+                executionStack.add("\tAdded to new truck");
+
+                bestTruck = factory.make();
+                bestTruck.addParcel(parcel);
+                trucks.add(bestTruck);
             }
-
-            executionStack.add("\tAdded to new truck");
-
-            newTruck = factory.make();
-            newTruck.addParcel(parcel);
-            trucks.add(newTruck);
         }
     }
 
