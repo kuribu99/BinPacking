@@ -1,4 +1,5 @@
 
+import java.awt.event.KeyEvent;
 import javax.swing.DefaultListModel;
 
 public class ResultDialog extends javax.swing.JDialog {
@@ -40,6 +41,7 @@ public class ResultDialog extends javax.swing.JDialog {
         btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Result");
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);

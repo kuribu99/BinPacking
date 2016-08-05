@@ -30,13 +30,13 @@ public class WorstFitAlgorithm extends Algorithm {
             if (worstTruck != null) {
                 executionStack.add(
                         String.format(
-                                "\tAdded to truck with load (%d/%d)",
+                                "---Added to truck with load (%d/%d)",
                                 worstTruck.getCurrentLoad(),
                                 loadLimit));
                 worstTruck.addParcel(parcel);
             }
             else {
-                executionStack.add("\tAdded to new truck");
+                executionStack.add("---Added to new truck");
 
                 worstTruck = factory.make();
                 worstTruck.addParcel(parcel);

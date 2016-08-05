@@ -11,13 +11,46 @@ public class BestFitAlgorithm extends Algorithm {
         super(algorithmName);
     }
 
+    @Override
+    public void execute(
+            int loadLimit,
+            LinkedList<Parcel> parcels,
+            LinkedList<String> executionStack,
+            LinkedList<Truck> trucks,
+            Truck.Factory factory) {
+
+        Truck bestTruck;
+
+        for (Parcel parcel : parcels) {
+            executionStack.add("Adding parcel with weight " + parcel.getWeight());
+
+            bestTruck = getBestFitTruck(trucks, parcel);
+
+            if (bestTruck != null) {
+                executionStack.add(
+                        String.format(
+                                "---Added to truck with load (%d/%d)",
+                                bestTruck.getCurrentLoad(),
+                                loadLimit));
+                bestTruck.addParcel(parcel);
+            }
+            else {
+                executionStack.add("---Added to new truck");
+
+                bestTruck = factory.make();
+                bestTruck.addParcel(parcel);
+                trucks.add(bestTruck);
+            }
+        }
+    }
+
     public Truck getBestFitTruck(LinkedList<Truck> trucks, Parcel parcel) {
         int parcelWeight = parcel.getWeight();
 
-        Truck bestTruck = null; // Best fit truck
+        Truck bestTruck = null;             //  Best fit truck
         int minLoad = Integer.MAX_VALUE;    // Minimum load after adding parcel
 
-        int currentRemainingLoad;  // Variable to store current truck's remaining load after adding parcel
+        int currentRemainingLoad;           // Variable to store current truck's remaining load after adding parcel
 
         for (Truck truck : trucks) {
             currentRemainingLoad = truck.getRemainingLoad() - parcelWeight;
@@ -38,38 +71,6 @@ public class BestFitAlgorithm extends Algorithm {
         }
 
         return bestTruck;
-    }
-
-    @Override
-    public void execute(
-            int loadLimit,
-            LinkedList<Parcel> parcels,
-            LinkedList<String> executionStack,
-            LinkedList<Truck> trucks,
-            Truck.Factory factory) {
-
-        Truck bestTruck;
-
-        for (Parcel parcel : parcels) {
-            executionStack.add("Adding parcel with weight " + parcel.getWeight());
-
-            bestTruck = getBestFitTruck(trucks, parcel);
-
-            if (bestTruck != null) {
-                executionStack.add(
-                        String.format(
-                                "\tAdded to truck with load (%d/%d)",
-                                bestTruck.getCurrentLoad(),
-                                loadLimit));
-                bestTruck.addParcel(parcel);
-            } else {
-                executionStack.add("\tAdded to new truck");
-
-                bestTruck = factory.make();
-                bestTruck.addParcel(parcel);
-                trucks.add(bestTruck);
-            }
-        }
     }
 
 }
