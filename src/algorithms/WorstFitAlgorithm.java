@@ -1,6 +1,8 @@
+package algorithms;
 
+import data.Parcel;
+import data.Truck;
 import java.util.LinkedList;
-import java.util.PriorityQueue;
 
 public class WorstFitAlgorithm extends Algorithm {
 

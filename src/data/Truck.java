@@ -1,3 +1,4 @@
+package data;
 
 import java.util.LinkedList;
 
@@ -54,7 +55,8 @@ public class Truck {
         if (canFit(p) && list.add(p)) {
             currentLoad += p.getWeight();
             return true;
-        } else {
+        }
+        else {
             return false;
         }
     }

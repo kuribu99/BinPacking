@@ -1,3 +1,4 @@
+package data;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -68,7 +69,7 @@ public class Data {
         return parcels;
     }
 
-    protected int getTruckLoadLimit() {
+    public int getTruckLoadLimit() {
         return truckLoadLimit;
     }
 

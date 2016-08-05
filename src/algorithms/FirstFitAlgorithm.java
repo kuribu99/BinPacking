@@ -1,4 +1,7 @@
+package algorithms;
 
+import data.Truck;
+import data.Parcel;
 import java.util.LinkedList;
 
 public class FirstFitAlgorithm extends Algorithm {

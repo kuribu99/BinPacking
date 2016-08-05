@@ -1,4 +1,7 @@
+package algorithms;
 
+import data.Parcel;
+import data.Truck;
 import java.util.LinkedList;
 
 public class BestFitAlgorithm extends Algorithm {

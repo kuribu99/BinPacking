@@ -1,4 +1,8 @@
+package algorithms;
 
+import data.Data;
+import data.Parcel;
+import data.Truck;
 import java.util.LinkedList;
 
 public abstract class Algorithm {

@@ -1,4 +1,7 @@
+package ui;
 
+import algorithms.Algorithm;
+import data.Truck;
 import javax.swing.DefaultListModel;
 
 public class ResultDialog extends javax.swing.JDialog {

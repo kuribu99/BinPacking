@@ -1,8 +1,10 @@
+package ui;
 
+import algorithms.Algorithm;
+import data.Data;
+import data.FileFormatException;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
