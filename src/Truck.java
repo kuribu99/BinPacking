@@ -76,17 +76,4 @@ public class Truck {
         return builder.toString();
     }
 
-    public int getMax(Parcel p) {
-        return getRemainingLoad() - p.getWeight();
-    }
-
-    public boolean isMax(Parcel p) {
-        getMax(p);
-        return true;
-    }
-
-    public boolean getFit(Parcel p) {
-        return getRemainingLoad() >= p.getWeight();
-    }
-
 }
