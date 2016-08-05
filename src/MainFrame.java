@@ -1,7 +1,11 @@
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -209,19 +213,42 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteActionPerformed
-        btnSelectPathActionPerformed(evt);
+        if (fileData == null) {
+            try {
+                fileData = readData(tbxPath.getText());
+            }
+            catch (FileNotFoundException ex) {
+                fileData = null;
+                showErrorMessage("File not found");
+
+            }
+            catch (FileFormatException ex) {
+                fileData = null;
+                showErrorMessage(ex.getMessage());
+            }
+        }
+
         execute(fileData);
     }//GEN-LAST:event_btnExecuteActionPerformed
 
     private void btnSelectPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectPathActionPerformed
         try {
-            fileData = readData(tbxPath.getText());
+            JFileChooser fileChooser = new JFileChooser(new File("").getAbsolutePath());
 
-        } catch (FileNotFoundException ex) {
+            switch (fileChooser.showOpenDialog(this)) {
+                case JFileChooser.APPROVE_OPTION:
+                    tbxPath.setText(fileChooser.getSelectedFile().getAbsolutePath());
+                    break;
+            }
+
+            fileData = readData(tbxPath.getText());
+        }
+        catch (FileNotFoundException ex) {
             fileData = null;
             showErrorMessage("File not found");
 
-        } catch (FileFormatException ex) {
+        }
+        catch (FileFormatException ex) {
             fileData = null;
             showErrorMessage(ex.getMessage());
         }
@@ -305,7 +332,8 @@ public class MainFrame extends javax.swing.JFrame {
             Algorithm algorithm = Algorithm.Factory.make(algorithmName);
             if (algorithm == null) {
                 showErrorMessage("Invalid algorithm name");
-            } else {
+            }
+            else {
                 showResult(algorithm.execute(data));
             }
         }
