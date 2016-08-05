@@ -1,5 +1,4 @@
 
-import java.awt.event.KeyEvent;
 import javax.swing.DefaultListModel;
 
 public class ResultDialog extends javax.swing.JDialog {
@@ -15,6 +14,7 @@ public class ResultDialog extends javax.swing.JDialog {
         lblAlgo.setText(result.getAlgorithmName());
         lblTruckLimit.setText(String.valueOf(result.getLoadLimit()));
         lblNumberTruck.setText(String.valueOf(result.getTrucks().length));
+        lblTimeTaken.setText(String.format("%d milliseconds", result.getTimeTaken()));
     }
 
     /**
@@ -39,6 +39,8 @@ public class ResultDialog extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         listExecutionStack = new javax.swing.JList();
         btnClose = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        lblTimeTaken = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Result");
@@ -107,7 +109,7 @@ public class ResultDialog extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -117,6 +119,14 @@ public class ResultDialog extends javax.swing.JDialog {
                 btnCloseActionPerformed(evt);
             }
         });
+
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("TIme taken:");
+
+        lblTimeTaken.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblTimeTaken.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTimeTaken.setText("<TimeTaken>");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,7 +154,11 @@ public class ResultDialog extends javax.swing.JDialog {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblTimeTaken, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -163,7 +177,11 @@ public class ResultDialog extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(lblNumberTruck))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lblTimeTaken))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -183,12 +201,14 @@ public class ResultDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAlgo;
     private javax.swing.JLabel lblNumberTruck;
+    private javax.swing.JLabel lblTimeTaken;
     private javax.swing.JLabel lblTruckLimit;
     private javax.swing.JList listExecutionStack;
     private javax.swing.JList listTruck;

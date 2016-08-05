@@ -59,6 +59,8 @@ public abstract class Algorithm {
         LinkedList<Truck> trucks = new LinkedList<>();
         Truck.Factory factory = new Truck.Factory(data.getTruckLoadLimit());
 
+        long startTime = System.currentTimeMillis();
+
         // Execute based on child class implementation
         execute(
                 data.getTruckLoadLimit(),
@@ -67,11 +69,15 @@ public abstract class Algorithm {
                 trucks,
                 factory);
 
+        long endTime = System.currentTimeMillis();
+        long timeTaken = endTime - startTime;
+
         return new Result(
                 algorithmName,
                 data.getTruckLoadLimit(),
                 executionStack.toArray(new String[]{}),
-                trucks.toArray(new Truck[]{}));
+                trucks.toArray(new Truck[]{}),
+                timeTaken);
     }
 
     public abstract void execute(
@@ -87,12 +93,14 @@ public abstract class Algorithm {
         private final int loadLimit;
         private final String[] executionStack;
         private final Truck[] trucks;
+        private final long timeTaken;
 
-        protected Result(String algorithmName, int loadLimit, String[] executionStacks, Truck[] trucks) {
+        protected Result(String algorithmName, int loadLimit, String[] executionStacks, Truck[] trucks, long timeTaken) {
             this.algorithmName = algorithmName;
             this.loadLimit = loadLimit;
             this.executionStack = executionStacks;
             this.trucks = trucks;
+            this.timeTaken = timeTaken;
         }
 
         public String getAlgorithmName() {
@@ -109,6 +117,10 @@ public abstract class Algorithm {
 
         public Truck[] getTrucks() {
             return trucks;
+        }
+
+        public long getTimeTaken() {
+            return timeTaken;
         }
 
     }
