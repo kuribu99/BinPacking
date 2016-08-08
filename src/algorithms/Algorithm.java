@@ -16,6 +16,10 @@ public abstract class Algorithm {
         public static final String FIRST_FIT_DECR = "First Fit Decreasing";
         public static final String BEST_FIT_DECR = "Best Fit Decreasing";
         public static final String WORST_FIT_DECR = "Worst Fit Decreasing";
+        public static final String ENHANCED_BEST_FIT = "Best Fit (Enhanced)";
+        public static final String ENHANCED_BEST_FIT_DECR = "Best Fit Decreasing (Enhanced)";
+        public static final String ENHANCED_WORST_FIT = "Worst Fit (Enhanced)";
+        public static final String ENHANCED_WORST_FIT_DECR = "Worst Fit Decreasing (Enhanced)";
 
         protected Factory() {
 
@@ -40,6 +44,19 @@ public abstract class Algorithm {
 
                 case WORST_FIT_DECR:
                     return new WorstFitDecrAlgorithm();
+                    
+                case ENHANCED_BEST_FIT:
+                    return new EnhancedBestFitAlgorithm();
+
+                case ENHANCED_BEST_FIT_DECR:
+                    return new EnhancedBestFitDecrAlgorithm();
+                    
+                case ENHANCED_WORST_FIT:
+                    return new EnhancedWorstFitAlgorithm();
+
+                case ENHANCED_WORST_FIT_DECR:
+                    return new EnhancedWorstFitDecrAlgorithm();
+
 
                 default:
                     return null;
