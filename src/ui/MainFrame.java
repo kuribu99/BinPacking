@@ -357,11 +357,7 @@ public class MainFrame extends javax.swing.JFrame {
             Algorithm.Factory.WORST_FIT,
             Algorithm.Factory.FIRST_FIT_DECR,
             Algorithm.Factory.BEST_FIT_DECR,
-            Algorithm.Factory.WORST_FIT_DECR,
-            Algorithm.Factory.ENHANCED_BEST_FIT,
-            Algorithm.Factory.ENHANCED_BEST_FIT_DECR,
-            Algorithm.Factory.ENHANCED_WORST_FIT,
-            Algorithm.Factory.ENHANCED_WORST_FIT_DECR
+            Algorithm.Factory.WORST_FIT_DECR
         });
 
         distributionModel = new DefaultComboBoxModel<>(new String[]{

@@ -2,14 +2,17 @@ package algorithms;
 
 import data.Parcel;
 import data.Truck;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 
 public class BestFitAlgorithm extends Algorithm {
 
     public BestFitAlgorithm() {
         super(Factory.BEST_FIT);
     }
-
+    
     protected BestFitAlgorithm(String algorithmName) {
         super(algorithmName);
     }
@@ -22,58 +25,51 @@ public class BestFitAlgorithm extends Algorithm {
             LinkedList<Truck> trucks,
             Truck.Factory factory) {
 
+        // Create a map that stores stack of truck based on their remaining load
+        Map<Integer, Queue<Truck>> truckRemainingLoadMap = new HashMap<>();
+        for (int i = 1; i < loadLimit; i++) {
+            truckRemainingLoadMap.put(i, new LinkedList<>());
+        }
+
+        Queue<Truck> currentQueue;
         Truck bestTruck;
 
         for (Parcel parcel : parcels) {
             executionStack.add("Adding parcel with weight " + parcel.getWeight());
 
-            bestTruck = getBestFitTruck(trucks, parcel);
+            bestTruck = null;
+            
+            for (int i = parcel.getWeight(); i < loadLimit; i++) {
+                currentQueue = truckRemainingLoadMap.get(i);
 
-            if (bestTruck != null) {
-                executionStack.add(
-                        String.format(
-                                "---Added to truck with load (%d/%d)",
-                                bestTruck.getCurrentLoad(),
-                                loadLimit));
-                bestTruck.addParcel(parcel);
+                // If the queue is not empty, use the first truck
+                if (currentQueue.size() > 0) {
+                    bestTruck = currentQueue.remove();
+                    executionStack.add(
+                            String.format(
+                                    "---Added to truck with load (%d/%d)",
+                                    bestTruck.getCurrentLoad(),
+                                    loadLimit));
+                    bestTruck.addParcel(parcel);
+                    break;
+                }
             }
-            else {
+
+            // If no truck was suitable, create new one
+            if (bestTruck == null) {
                 executionStack.add("---Added to new truck");
 
                 bestTruck = factory.make();
                 bestTruck.addParcel(parcel);
                 trucks.add(bestTruck);
             }
-        }
-    }
 
-    public Truck getBestFitTruck(LinkedList<Truck> trucks, Parcel parcel) {
-        int parcelWeight = parcel.getWeight();
-
-        Truck bestTruck = null;             //  Best fit truck
-        int minLoad = Integer.MAX_VALUE;    // Minimum load after adding parcel
-
-        int currentRemainingLoad;           // Variable to store current truck's remaining load after adding parcel
-
-        for (Truck truck : trucks) {
-            currentRemainingLoad = truck.getRemainingLoad() - parcelWeight;
-
-            // Directly end if best fit
-            if (currentRemainingLoad == 0) {
-                return truck;
-
-            } // Only do if truck load can fit parcel
-            else if (currentRemainingLoad > 0) {
-
-                // If load after parcel is minimum, set as best
-                if (currentRemainingLoad < minLoad) {
-                    bestTruck = truck;
-                    minLoad = currentRemainingLoad;
-                }
+            // Update the location of best truck
+            int newRemainingLoad = bestTruck.getRemainingLoad();
+            if (newRemainingLoad > 0) {
+                truckRemainingLoadMap.get(newRemainingLoad).add(bestTruck);
             }
         }
-
-        return bestTruck;
     }
 
 }
