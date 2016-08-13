@@ -47,6 +47,10 @@ public class Truck {
         return loadLimit - currentLoad;
     }
 
+    public boolean isFull() {
+        return getRemainingLoad() == 0;
+    }
+
     public LinkedList<Parcel> getParcels() {
         return list;
     }

@@ -23,10 +23,11 @@ public class FirstFitAlgorithm extends Algorithm {
             Truck.Factory factory) {
 
         Truck firstTruck;
+        LinkedList<Truck> nonFullTrucks = new LinkedList<>();
 
         for (Parcel parcel : parcels) {
             executionStack.add("Adding parcel with weight " + parcel.getWeight());
-            firstTruck = getFirstFitTruck(trucks, parcel);
+            firstTruck = getFirstFitTruck(nonFullTrucks, parcel);
 
             if (firstTruck != null) {
                 executionStack.add(
@@ -35,6 +36,9 @@ public class FirstFitAlgorithm extends Algorithm {
                                 firstTruck.getCurrentLoad(),
                                 loadLimit));
                 firstTruck.addParcel(parcel);
+                if(!firstTruck.isFull()) {
+                    nonFullTrucks.add(firstTruck);
+                }
             }
             else {
                 executionStack.add("---Added to new truck");
@@ -42,6 +46,9 @@ public class FirstFitAlgorithm extends Algorithm {
                 firstTruck = factory.make();
                 firstTruck.addParcel(parcel);
                 trucks.add(firstTruck);
+                if(!firstTruck.isFull()) {
+                    nonFullTrucks.add(firstTruck);
+                }
             }
         }
     }
