@@ -5,6 +5,9 @@ import data.Data;
 import data.FileFormatException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
@@ -47,6 +50,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnGenerate = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         comboboxDistribution = new javax.swing.JComboBox();
+        btnSaveData = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bin Packing Solver");
@@ -151,6 +155,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         comboboxDistribution.setModel(distributionModel);
 
+        btnSaveData.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnSaveData.setText("Save Data");
+        btnSaveData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveDataActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelRandomLayout = new javax.swing.GroupLayout(panelRandom);
         panelRandom.setLayout(panelRandomLayout);
         panelRandomLayout.setHorizontalGroup(
@@ -159,7 +171,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelRandomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRandomLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnSaveData, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnExecuteRandom, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -176,7 +189,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(spinnerParcelNumber))
-                            .addComponent(comboboxDistribution, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboboxDistribution, 0, 298, Short.MAX_VALUE))
                         .addGap(10, 10, 10))))
         );
         panelRandomLayout.setVerticalGroup(
@@ -195,7 +208,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelRandomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExecuteRandom, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSaveData, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -283,16 +297,38 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateActionPerformed
         generatedData = Data.Generator.generate(
-                comboboxDistribution.getSelectedIndex() + 1,
+                comboboxDistribution.getSelectedItem().toString(),
                 (int) loadLimitSpinnerModel.getValue(),
                 (int) parcelNumberSpinnerModel.getValue()
         );
     }//GEN-LAST:event_btnGenerateActionPerformed
 
+    private void btnSaveDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveDataActionPerformed
+        try {
+            // Generate data if data does not exist
+            if (generatedData == null) {
+                btnGenerateActionPerformed(evt);
+            }
+
+            JFileChooser fileChooser = new JFileChooser(new File("").getAbsolutePath());
+
+            switch (fileChooser.showSaveDialog(this)) {
+                case JFileChooser.APPROVE_OPTION:
+                    Data.save(fileChooser.getSelectedFile().getAbsolutePath(), generatedData);
+                    showMessage("Success", "Data saved into file successfully", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+            }
+        }
+        catch (IOException ex) {
+            showErrorMessage("Unable to save to file due to " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnSaveDataActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExecute;
     private javax.swing.JButton btnExecuteRandom;
     private javax.swing.JButton btnGenerate;
+    private javax.swing.JButton btnSaveData;
     private javax.swing.JButton btnSelectPath;
     private javax.swing.JComboBox comboboxAlgorithm;
     private javax.swing.JComboBox comboboxDistribution;
@@ -329,13 +365,13 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         distributionModel = new DefaultComboBoxModel<>(new String[]{
-            "Balanced",
-            "More on low value",
-            "More on high value",
-            "More on center",
-            "More on edge"
+            Data.Generator.DATA_BALANCED,
+            Data.Generator.DATA_LOW,
+            Data.Generator.DATA_HIGH,
+            Data.Generator.DATA_CENTER,
+            Data.Generator.DATA_EDGE
         });
-        
+
         loadLimitSpinnerModel = new SpinnerNumberModel(10, 1, Integer.MAX_VALUE, 1);
         parcelNumberSpinnerModel = new SpinnerNumberModel(10, 1, Integer.MAX_VALUE, 1);
     }

@@ -178,7 +178,8 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="btnSaveData" min="-2" pref="120" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnGenerate" min="-2" pref="120" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnExecuteRandom" min="-2" pref="120" max="-2" attributes="0"/>
@@ -198,7 +199,7 @@
                                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                   <Component id="spinnerParcelNumber" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="comboboxDistribution" min="-2" pref="298" max="-2" attributes="0"/>
+                              <Component id="comboboxDistribution" pref="298" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       </Group>
@@ -225,6 +226,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnExecuteRandom" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="btnGenerate" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="btnSaveData" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -307,6 +309,17 @@
               <Connection code="distributionModel" type="code"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnSaveData">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Save Data"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveDataActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

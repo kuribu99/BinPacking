@@ -1,11 +1,17 @@
 package data;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Data {
 
@@ -48,6 +54,23 @@ public class Data {
         return data;
     }
 
+    public static void save(String fileName, Data data) throws IOException {
+        StringBuilder builder = new StringBuilder();
+
+        // Append load limit
+        builder.append(data.getTruckLoadLimit()).append(" ");
+
+        // Append parcels
+        for (Parcel p : data.getParcels()) {
+            builder.append(p.getWeight()).append(" ");
+        }
+
+        // Write to file
+        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+        writer.write(builder.toString().trim());
+        writer.close();
+    }
+
     public boolean isSuccess() {
         return success;
     }
@@ -64,11 +87,11 @@ public class Data {
 
         private static final Random rand = new Random();
 
-        public static final int DATA_BALANCED = 1;
-        public static final int DATA_LOW = 2;
-        public static final int DATA_HIGH = 3;
-        public static final int DATA_CENTER = 4;
-        public static final int DATA_EDGE = 5;
+        public static final String DATA_BALANCED = "Balanced";
+        public static final String DATA_LOW = "More low values";
+        public static final String DATA_HIGH = "More high values";
+        public static final String DATA_CENTER = "More on center";
+        public static final String DATA_EDGE = "More on edges";
 
         public static double nextLimitOneGaussian() {
             double value;
@@ -85,7 +108,7 @@ public class Data {
             return Math.abs(nextLimitOneGaussian());
         }
 
-        public static List<Integer> getDistributedData(int dataType, int maxValue, int count) {
+        public static List<Integer> getDistributedData(String dataType, int maxValue, int count) {
             List<Integer> data = new LinkedList<>();
             int max = maxValue - 1; // To reduce range from [1, maxValue] to [0, maxValue - 1]
             double mid = 0.5 * max; // Reference to midpoint
@@ -138,7 +161,7 @@ public class Data {
             return data;
         }
 
-        public static Data generate(int dataType, int loadLimit, int numberParcels) {
+        public static Data generate(String dataType, int loadLimit, int numberParcels) {
             Data data = new Data();
             data.truckLoadLimit = loadLimit;
 
