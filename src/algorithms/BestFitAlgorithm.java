@@ -12,7 +12,7 @@ public class BestFitAlgorithm extends Algorithm {
     public BestFitAlgorithm() {
         super(Factory.BEST_FIT);
     }
-    
+
     protected BestFitAlgorithm(String algorithmName) {
         super(algorithmName);
     }
@@ -38,7 +38,7 @@ public class BestFitAlgorithm extends Algorithm {
             executionStack.add("Adding parcel with weight " + parcel.getWeight());
 
             bestTruck = null;
-            
+
             for (int i = parcel.getWeight(); i < loadLimit; i++) {
                 currentQueue = truckRemainingLoadMap.get(i);
 

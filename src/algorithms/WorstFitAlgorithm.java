@@ -12,7 +12,7 @@ public class WorstFitAlgorithm extends Algorithm {
     public WorstFitAlgorithm() {
         super(Factory.WORST_FIT);
     }
-    
+
     protected WorstFitAlgorithm(String algorithmName) {
         super(algorithmName);
     }

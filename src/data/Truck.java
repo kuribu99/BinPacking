@@ -29,7 +29,7 @@ public class Truck {
     private final int loadLimit;
     private int currentLoad;
 
-    protected Truck(int loadLimit) {
+    public Truck(int loadLimit) {
         this.loadLimit = loadLimit;
         this.currentLoad = 0;
         this.list = new LinkedList<>();

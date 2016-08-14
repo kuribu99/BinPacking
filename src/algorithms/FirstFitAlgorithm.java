@@ -36,7 +36,7 @@ public class FirstFitAlgorithm extends Algorithm {
                                 firstTruck.getCurrentLoad(),
                                 loadLimit));
                 firstTruck.addParcel(parcel);
-                if(!firstTruck.isFull()) {
+                if (!firstTruck.isFull()) {
                     nonFullTrucks.add(firstTruck);
                 }
             }
@@ -46,7 +46,7 @@ public class FirstFitAlgorithm extends Algorithm {
                 firstTruck = factory.make();
                 firstTruck.addParcel(parcel);
                 trucks.add(firstTruck);
-                if(!firstTruck.isFull()) {
+                if (!firstTruck.isFull()) {
                     nonFullTrucks.add(firstTruck);
                 }
             }
