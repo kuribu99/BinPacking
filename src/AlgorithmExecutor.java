@@ -15,11 +15,11 @@ public class AlgorithmExecutor {
     public static void main(String[] args) throws Exception {
 
         String[] algorithms = new String[]{
-            Algorithm.Factory.FIRST_FIT,
-            Algorithm.Factory.BEST_FIT,
-            Algorithm.Factory.WORST_FIT,
-            Algorithm.Factory.FIRST_FIT_DECR,
-            Algorithm.Factory.BEST_FIT_DECR,
+            //Algorithm.Factory.FIRST_FIT,
+            //Algorithm.Factory.BEST_FIT,
+            //Algorithm.Factory.WORST_FIT,
+            //Algorithm.Factory.FIRST_FIT_DECR,
+            //Algorithm.Factory.BEST_FIT_DECR,
             Algorithm.Factory.WORST_FIT_DECR
         };
 
@@ -35,12 +35,12 @@ public class AlgorithmExecutor {
             1000,
             10000,
             // Warning: here onwards take a lot of time
-            50000,
-            100000
+            // 50000,
+            // 100000
         };
 
         // Number of repetition to get average
-        int numberOfRepetition = 100;
+        int numberOfRepetition = 10;
 
         // Create file writer to write as CSV
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Output.csv"))) {
@@ -59,7 +59,7 @@ public class AlgorithmExecutor {
                 algo = Algorithm.Factory.make(algorithm);
 
                 for (String dataType : dataTypes) {
-                    for (int parcelNumber : parcelNumbers) {
+                    for (int parcelNumber = 1000; parcelNumber <= 50000; parcelNumber += 1000) {
                         long avgTime = 0;
                         int avgTruck = 0;
 
