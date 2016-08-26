@@ -43,7 +43,7 @@ public class BestFitAlgorithm extends Algorithm {
                 currentQueue = truckRemainingLoadMap.get(i);
 
                 // If the queue is not empty, use the first truck
-                if (currentQueue.size() > 0) {
+                if (!currentQueue.isEmpty()) {
                     bestTruck = currentQueue.remove();
                     executionStack.add(
                             String.format(
