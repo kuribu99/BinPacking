@@ -32,12 +32,12 @@ public class FirstFitAlgorithm extends Algorithm {
             if (firstTruck != null) {
                 executionStack.add(
                         String.format(
-                                "---Added to truck with load (%d/%d)",
+                                "---Added to truck with load (%fd/%d)",
                                 firstTruck.getCurrentLoad(),
                                 loadLimit));
                 firstTruck.addParcel(parcel);
-                if (!firstTruck.isFull()) {
-                    nonFullTrucks.add(firstTruck);
+                if (firstTruck.isFull()) {
+                    nonFullTrucks.remove(firstTruck);
                 }
             }
             else {
