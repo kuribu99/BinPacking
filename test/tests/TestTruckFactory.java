@@ -1,5 +1,3 @@
-/*
- */
 package tests;
 
 import data.Truck;
@@ -7,10 +5,6 @@ import java.util.Random;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Kong My
- */
 public class TestTruckFactory {
 
     @Test

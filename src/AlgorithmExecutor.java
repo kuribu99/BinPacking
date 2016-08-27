@@ -4,12 +4,6 @@ import data.Data;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
-/*
- */
-/**
- *
- * @author Kong My
- */
 public class AlgorithmExecutor {
 
     public static void main(String[] args) throws Exception {

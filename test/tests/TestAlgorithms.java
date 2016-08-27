@@ -1,5 +1,3 @@
-/*
- */
 package tests;
 
 import algorithms.Algorithm;
@@ -19,12 +17,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.runners.Parameterized;
 
-/**
- *
- * @author Kong My
- */
 public class TestAlgorithms {
 
     public static int testCaseNumbers = 3;

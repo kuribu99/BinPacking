@@ -9,10 +9,6 @@ import java.util.Random;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Kong My
- */
 public class TestDataGenerator {
 
     @Test
