@@ -1,5 +1,3 @@
-/*
- */
 package tests;
 
 import data.Data;
