@@ -9,12 +9,10 @@ import java.util.Queue;
 
 public class WorstFitAlgorithm extends Algorithm {
 
-	// Get worst fit algorithm from factory
     public WorstFitAlgorithm() {
         super(Factory.WORST_FIT);
     }
 
-	// Get algorithm name	
     protected WorstFitAlgorithm(String algorithmName) {
         super(algorithmName);
     }
@@ -28,23 +26,26 @@ public class WorstFitAlgorithm extends Algorithm {
             Truck.Factory factory) {
 
         // Create a map that stores stack of truck based on their remaining load
+        // Only stores truck with remaining load of [1, loadLimit - 1]
         Map<Integer, Queue<Truck>> truckRemainingLoadMap = new HashMap<>();
         for (int i = 1; i < loadLimit; i++) {
             truckRemainingLoadMap.put(i, new LinkedList<>());
         }
 
-		// Create a queue and define the worst fit truck		
+        // Variables that will be reused in loop		
         Queue<Truck> currentQueue;
         Truck worstTruck;
         int parcelWeight;
 
-		// Create a loop to move parcels into trucks		
+        // Create a loop to move parcels into trucks		
         for (Parcel parcel : parcels) {
             executionStack.add("Adding parcel with weight " + parcel.getWeight());
 
             worstTruck = null;
             parcelWeight = parcel.getWeight();
-			// Create a loop to insert parcels into a queue			
+
+            // Create a loop to insert parcels into a queue based on weight of parcel
+            // Directly start maximum remaining space (worst fit) and end with truck load which can fit parcel	
             for (int i = loadLimit - 1; i >= parcelWeight; i--) {
                 currentQueue = truckRemainingLoadMap.get(i);
 
@@ -70,7 +71,7 @@ public class WorstFitAlgorithm extends Algorithm {
                 trucks.add(worstTruck);
             }
 
-            // Update the location of best truck
+            // Update the location of the truck
             int newRemainingLoad = worstTruck.getRemainingLoad();
             if (newRemainingLoad > 0) {
                 truckRemainingLoadMap.get(newRemainingLoad).add(worstTruck);

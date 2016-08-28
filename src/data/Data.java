@@ -12,24 +12,26 @@ import java.util.Scanner;
 
 public class Data {
 
-	// Define parcels, truck load limit and success of getting data 
+    // Fields
     private final LinkedList<Parcel> parcels;
     private int truckLoadLimit;
     private boolean success;
 
-	// Initialize data
     protected Data() {
         parcels = new LinkedList<>();
         truckLoadLimit = 0;
         success = false;
     }
 
-	// Read data from file
+    // Read data from file
     public static Data read(String fileName) throws FileNotFoundException, FileFormatException {
         Data data = new Data();
 
         try (Scanner scanner = new Scanner(new File(fileName))) {
+            // Use anything except numbers as delimiter
             scanner.useDelimiter("[\\D]+");
+
+            // Empty file
             if (!scanner.hasNext()) {
                 throw new FileFormatException();
             }
@@ -54,7 +56,7 @@ public class Data {
         return data;
     }
 
-	// Save data
+    // Save data into file
     public static void save(String fileName, Data data) throws IOException {
         StringBuilder builder = new StringBuilder();
 
@@ -72,33 +74,47 @@ public class Data {
         writer.close();
     }
 
-	//Get success of getting data
+    // Whether this data is read/generated successfully
     public boolean isSuccess() {
         return success;
     }
 
-	//Get parcels
     public LinkedList<Parcel> getParcels() {
         return parcels;
     }
 
-	//Get truck load limit	
     public int getTruckLoadLimit() {
         return truckLoadLimit;
     }
 
-	//Generate random data
+    // Random data generator
     public static class Generator {
 
         private static final Random rand = new Random();
 
-		// Define data attributes
+        // Types of data distrubtion supported
+        
+        // Balanced distributed data
+        // Consistent frequency within [1, N]
         public static final String DATA_BALANCED = "Balanced";
+        
+        // Higher freqeuncy at smaller values
+        // Normal distributed with mean at 1
         public static final String DATA_LOW = "More low values";
+        
+        // Higher freqeuncy at larger values
+        // Normal distributed with mean at N
         public static final String DATA_HIGH = "More high values";
+        
+        // Normal distributed with mean at center
+        // The highest frequency is at center
         public static final String DATA_CENTER = "More on center";
+        
+        // Normal distributed with mean at 1 and N
+        // The highest frequency is at 1 and N
         public static final String DATA_EDGE = "More on edges";
 
+        // Returns a random value from normal distributed data which ranges within [-1, 1]
         public static double nextLimitOneGaussian() {
             double value;
 
@@ -110,10 +126,12 @@ public class Data {
             return value;
         }
 
+        // Returns a random value from normal distributed data which ranges within [0, 1]
         public static double nextAbsLimitOneGaussian() {
             return Math.abs(nextLimitOneGaussian());
         }
 
+        // Generates integers with frequency of count and maxiumum of maxValue with defined data distribution
         public static List<Integer> getDistributedData(String dataType, int maxValue, int count) {
             List<Integer> data = new LinkedList<>();
             int max = maxValue - 1; // To reduce range from [1, maxValue] to [0, maxValue - 1]
@@ -156,7 +174,7 @@ public class Data {
                 case DATA_EDGE:
                     for (int i = 0; i < count; i++) {
                         // Normal distribution returns [0, 1]
-                        // Use 1-[0, 1] to inverse the distribution
+                        // So we use mid - mid * value to inverse the distribution
                         // Then use inversed normal distribution with Mean = mid and SD = mid
                         data.add(1 + (int) (mid - mid * nextLimitOneGaussian()));
                     }
@@ -167,13 +185,15 @@ public class Data {
             return data;
         }
 
-		// Generate data
+        // Generate data with specific data distribution, load limit and frequency
         public static Data generate(String dataType, int loadLimit, int numberParcels) {
             Data data = new Data();
             data.truckLoadLimit = loadLimit;
 
+            // Get list of integer
             List<Integer> distributedData = getDistributedData(dataType, loadLimit, numberParcels);
-
+            
+            // Convert to parcels
             for (int i : distributedData) {
                 data.parcels.add(new Parcel(i));
             }

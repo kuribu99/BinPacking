@@ -244,19 +244,17 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteActionPerformed
-        if (fileData == null) {
-            try {
-                fileData = readData(tbxPath.getText());
-            }
-            catch (FileNotFoundException ex) {
-                fileData = null;
-                showErrorMessage("File not found");
+        try {
+            fileData = readData(tbxPath.getText());
+        }
+        catch (FileNotFoundException ex) {
+            fileData = null;
+            showErrorMessage("File not found");
 
-            }
-            catch (FileFormatException ex) {
-                fileData = null;
-                showErrorMessage(ex.getMessage());
-            }
+        }
+        catch (FileFormatException ex) {
+            fileData = null;
+            showErrorMessage(ex.getMessage());
         }
 
         execute(fileData);

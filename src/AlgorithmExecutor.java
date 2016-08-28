@@ -8,15 +8,17 @@ public class AlgorithmExecutor {
 
     public static void main(String[] args) throws Exception {
 
+        // Algoritms that will be executed
         String[] algorithms = new String[]{
-            //Algorithm.Factory.FIRST_FIT,
-            //Algorithm.Factory.BEST_FIT,
-            //Algorithm.Factory.WORST_FIT,
-            //Algorithm.Factory.FIRST_FIT_DECR,
-            //Algorithm.Factory.BEST_FIT_DECR,
+            Algorithm.Factory.FIRST_FIT,
+            Algorithm.Factory.BEST_FIT,
+            Algorithm.Factory.WORST_FIT,
+            Algorithm.Factory.FIRST_FIT_DECR,
+            Algorithm.Factory.BEST_FIT_DECR,
             Algorithm.Factory.WORST_FIT_DECR
         };
 
+        // Data types that will be executed
         String[] dataTypes = new String[]{
             Data.Generator.DATA_BALANCED,
             Data.Generator.DATA_LOW,
@@ -25,12 +27,12 @@ public class AlgorithmExecutor {
             Data.Generator.DATA_EDGE
         };
 
+        // Number of parcels that will be executed
         int[] parcelNumbers = new int[]{
             1000,
-            10000,
-            // Warning: here onwards take a lot of time
-            // 50000,
-            // 100000
+            10000 // Warning: here onwards take a lot of time
+        // 50000,
+        // 100000
         };
 
         // Number of repetition to get average
@@ -72,6 +74,7 @@ public class AlgorithmExecutor {
                         avgTime /= numberOfRepetition;
                         avgTruck /= numberOfRepetition;
 
+                        // Write to file
                         writer.write(toCsvRow(algorithm, dataType, parcelNumber, avgTime, avgTruck));
                         writer.newLine();
                     }
