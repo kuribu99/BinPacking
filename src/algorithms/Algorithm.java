@@ -21,6 +21,7 @@ public abstract class Algorithm {
 
         }
 
+		// Select algorithms
         public static Algorithm make(String algorithmName) {
             switch (algorithmName) {
                 case FIRST_FIT:
@@ -58,6 +59,7 @@ public abstract class Algorithm {
         return algorithmName;
     }
 
+	// Execute data
     public Result execute(Data data) {
         LinkedList<String> executionStack = new LinkedList<>();
         LinkedList<Truck> trucks = new LinkedList<>();
@@ -84,6 +86,7 @@ public abstract class Algorithm {
                 timeTaken);
     }
 
+	// Abstract method of execute data
     public abstract void execute(
             int loadLimit,
             LinkedList<Parcel> parcels,
@@ -93,12 +96,14 @@ public abstract class Algorithm {
 
     public static class Result {
 
+		// Defined data to be displayed in the result 
         private final String algorithmName;
         private final int loadLimit;
         private final String[] executionStack;
         private final Truck[] trucks;
         private final long timeTaken;
 
+		// Initialize data
         protected Result(String algorithmName, int loadLimit, String[] executionStacks, Truck[] trucks, long timeTaken) {
             this.algorithmName = algorithmName;
             this.loadLimit = loadLimit;
@@ -107,22 +112,27 @@ public abstract class Algorithm {
             this.timeTaken = timeTaken;
         }
 
+		// Get algorithm name		
         public String getAlgorithmName() {
             return algorithmName;
         }
 
+		// Get load limit of truck		
         public int getLoadLimit() {
             return loadLimit;
         }
 
+		// Get execution stack		
         public String[] getExecutionStack() {
             return executionStack;
         }
 
+		// Get truck		
         public Truck[] getTrucks() {
             return trucks;
         }
 
+		// Get time taken for execution	
         public long getTimeTaken() {
             return timeTaken;
         }

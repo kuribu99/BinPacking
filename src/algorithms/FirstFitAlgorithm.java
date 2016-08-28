@@ -6,10 +6,12 @@ import java.util.LinkedList;
 
 public class FirstFitAlgorithm extends Algorithm {
 
+	// Get first fit algorithm from factory
     public FirstFitAlgorithm() {
         super(Factory.FIRST_FIT);
     }
 
+	// Get algorithm name	
     protected FirstFitAlgorithm(String algorithmName) {
         super(algorithmName);
     }
@@ -25,10 +27,12 @@ public class FirstFitAlgorithm extends Algorithm {
         Truck firstTruck;
         LinkedList<Truck> nonFullTrucks = new LinkedList<>();
 
+		// Create a loop to move parcels into trucks		
         for (Parcel parcel : parcels) {
             executionStack.add("Adding parcel with weight " + parcel.getWeight());
             firstTruck = getFirstFitTruck(nonFullTrucks, parcel);
 
+			// if the truck is not full, add a parcel
             if (firstTruck != null) {
                 executionStack.add(
                         String.format(
@@ -43,6 +47,7 @@ public class FirstFitAlgorithm extends Algorithm {
             else {
                 executionStack.add("---Added to new truck");
 
+				// Create a new truck to add parcel
                 firstTruck = factory.make();
                 firstTruck.addParcel(parcel);
                 trucks.add(firstTruck);
@@ -53,6 +58,7 @@ public class FirstFitAlgorithm extends Algorithm {
         }
     }
 
+	// Create a loop to find a truck that fits
     public Truck getFirstFitTruck(LinkedList<Truck> trucks, Parcel parcel) {
         for (Truck truck : trucks) {
             if (truck.canFit(parcel)) {

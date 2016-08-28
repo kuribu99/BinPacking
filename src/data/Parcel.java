@@ -6,10 +6,12 @@ public class Parcel implements Serializable, Comparable<Parcel> {
 
     private final int weight;
 
+	//Initialize parcel
     public Parcel(int weight) {
         this.weight = weight;
     }
 
+	//Get parcel weight	
     public int getWeight() {
         return weight;
     }

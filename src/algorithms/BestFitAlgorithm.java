@@ -9,10 +9,12 @@ import java.util.Queue;
 
 public class BestFitAlgorithm extends Algorithm {
 
+	// Get best fit algorithm from factory
     public BestFitAlgorithm() {
         super(Factory.BEST_FIT);
     }
 
+	// Get algorithm name
     protected BestFitAlgorithm(String algorithmName) {
         super(algorithmName);
     }
@@ -31,14 +33,17 @@ public class BestFitAlgorithm extends Algorithm {
             truckRemainingLoadMap.put(i, new LinkedList<>());
         }
 
+		// Create a queue and define the best fit truck
         Queue<Truck> currentQueue;
         Truck bestTruck;
 
+		// Create a loop to move parcels into trucks
         for (Parcel parcel : parcels) {
             executionStack.add("Adding parcel with weight " + parcel.getWeight());
 
             bestTruck = null;
 
+			// Create a loop to insert parcels into a queue
             for (int i = parcel.getWeight(); i < loadLimit; i++) {
                 currentQueue = truckRemainingLoadMap.get(i);
 

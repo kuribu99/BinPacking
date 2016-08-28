@@ -12,16 +12,19 @@ import java.util.Scanner;
 
 public class Data {
 
+	// Define parcels, truck load limit and success of getting data 
     private final LinkedList<Parcel> parcels;
     private int truckLoadLimit;
     private boolean success;
 
+	// Initialize data
     protected Data() {
         parcels = new LinkedList<>();
         truckLoadLimit = 0;
         success = false;
     }
 
+	// Read data from file
     public static Data read(String fileName) throws FileNotFoundException, FileFormatException {
         Data data = new Data();
 
@@ -51,6 +54,7 @@ public class Data {
         return data;
     }
 
+	// Save data
     public static void save(String fileName, Data data) throws IOException {
         StringBuilder builder = new StringBuilder();
 
@@ -68,22 +72,27 @@ public class Data {
         writer.close();
     }
 
+	//Get success of getting data
     public boolean isSuccess() {
         return success;
     }
 
+	//Get parcels
     public LinkedList<Parcel> getParcels() {
         return parcels;
     }
 
+	//Get truck load limit	
     public int getTruckLoadLimit() {
         return truckLoadLimit;
     }
 
+	//Generate random data
     public static class Generator {
 
         private static final Random rand = new Random();
 
+		// Define data attributes
         public static final String DATA_BALANCED = "Balanced";
         public static final String DATA_LOW = "More low values";
         public static final String DATA_HIGH = "More high values";
@@ -158,6 +167,7 @@ public class Data {
             return data;
         }
 
+		// Generate data
         public static Data generate(String dataType, int loadLimit, int numberParcels) {
             Data data = new Data();
             data.truckLoadLimit = loadLimit;
